@@ -1,0 +1,24 @@
+{
+  "name": "globant-test",
+  "version": "1.0.0",
+  "description": "// Return an Object where the keys are the name of the farms and the values an Array of the internal number of their managers sorted alphabetically by name. function farmManagerNames() {",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebalvaro/globant-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebalvaro/globant-test/issues"
+  },
+  "homepage": "https://github.com/sebalvaro/globant-test#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  }
+}
