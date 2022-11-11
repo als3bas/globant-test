@@ -101,7 +101,7 @@ const farms = [
 
 // Return an array with the ids of the managers of each land
 function listLandManagerIds() {
-  return lands.map((land) => ({ landManagerId: land.landManagerId }));
+  return lands.map((land) => (land.landManagerId));
 }
 
 // Return an array with the internal number of the managers or the lands, sorted by name
@@ -179,14 +179,15 @@ function biggestOrangesManagers() {
 
 // Return an Object where the keys are the name of the manager and the value an Array of names of the lands that they manage, sorted alphabetically
 function farmManagerLands() {
-  const farmManagerLands = {};
+  const farmsManagerLands = {};
   landManagers.forEach((lm) => {
     // Lands doesn't have the "name" property.
     // so i'll return the entire object just in case
-    farmManagerLands[lm.name] = lands
+    farmsManagerLands[lm.name] = lands
       .filter((land) => land.landManagerId === lm.id);
+    // .sort((a, b) => a.name.localeCompare(b.name));
   });
-  return farmManagerLands;
+  return farmsManagerLands;
 }
 
 // Return an Object where the keys are the land types concatenated with the harvested year (use “-” to concatenate) and the value another Object where the key is the ID of the manager and the value the name of the manager
@@ -205,12 +206,14 @@ function landsManagers() {
   return harvested;
 }
 
-// console.log(listLandManagerIds());
-// console.log(listLandManagersByName());
-// console.log(sortLandTypeByTotalArea());
-// console.log(sortLandManagerByAdminArea());
-// console.log(farmManagerNames());
-// console.log(biggestAppleFarms());
-// console.log(biggestOrangesManagers());
-// console.log(farmManagerLands());
-console.log(landsManagers());
+module.exports = {
+  listLandManagerIds,
+  listLandManagersByName,
+  sortLandTypeByTotalArea,
+  sortLandManagerByAdminArea,
+  farmManagerNames,
+  biggestAppleFarms,
+  biggestOrangesManagers,
+  farmManagerLands,
+  landsManagers,
+};

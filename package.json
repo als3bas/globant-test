@@ -4,7 +4,7 @@
   "description": "// Return an Object where the keys are the name of the farms and the values an Array of the internal number of their managers sorted alphabetically by name. function farmManagerNames() {",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sebalvaro/globant-test#readme",
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.2",
