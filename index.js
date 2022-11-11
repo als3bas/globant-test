@@ -108,7 +108,7 @@ function listLandManagerIds() {
 function listLandManagersByName() {
   return landManagers
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((lm) => ({ internalNumber: lm.internalNumber }));
+    .map((lm) => (lm.internalNumber));
 }
 
 // Return an Array with the names of each land type, sorted dec by the total sum of the harvested hectares of each of them
@@ -135,7 +135,8 @@ function sortLandManagerByAdminArea() {
         .filter((land) => land.landManagerId === lm.id)
         .reduce((acc, land) => acc + land.area, 0),
     }))
-    .sort((a, b) => b.totalArea - a.totalArea);
+    .sort((a, b) => b.totalArea - a.totalArea)
+    .map((lm) => lm.name);
   return sortedLandManagers;
 }
 // Return an Object where the keys are the name of the farms and the values an Array of the internal number of their managers sorted alphabetically by name.
