@@ -140,11 +140,16 @@ function sortLandManagerByAdminArea() {
 }
 // Return an Object where the keys are the name of the farms and the values an Array of the internal number of their managers sorted alphabetically by name.
 function farmManagerNames() {
+  // create empty object
   const farmManagers = {};
+  // for each farm "push" the data to the object
   farms.forEach((farm) => {
     farmManagers[farm.name] = landManagers
+    // filter the land managers by farm id
       .filter((lm) => lands.some((land) => land.landManagerId === lm.id && land.farmId === farm.id))
+      // then sort by name
       .sort((a, b) => a.name.localeCompare(b.name))
+      // then map the internal number
       .map((lm) => lm.internalNumber);
   });
   return farmManagers;
@@ -153,9 +158,51 @@ function farmManagerNames() {
 // Return an Array sorted dec by the total m2 of the lands that have more than 2 hectares of Apples
 function biggestAppleFarms() {
   return lands
+  // filter by area
     .filter((l) => l.area > 20000)
+    // then by land type
     .filter((l) => l.landTypeId === 1)
+    // finally sort
     .sort((a, b) => b.area - a.area);
+}
+
+// Return an array with the names of the managers of Glo Land and Chicken Land sorted by name if they have more than 1000m2 of Oranges
+function biggestOrangesManagers() {
+  return landManagers
+    // check if they have more than 1000m2 of oranges
+    .filter((lm) => lands.some((l) => l.landManagerId === lm.id && l.area > 1000 && l.landTypeId === 2))
+    // check for glo and chicken land
+    .filter((lm) => lands.some((l) => l.landManagerId === lm.id && [1, 2].includes(l.farmId)))
+    // then sort
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Return an Object where the keys are the name of the manager and the value an Array of names of the lands that they manage, sorted alphabetically
+function farmManagerLands() {
+  const farmManagerLands = {};
+  landManagers.forEach((lm) => {
+    // Lands doesn't have the "name" property.
+    // so i'll return the entire object just in case
+    farmManagerLands[lm.name] = lands
+      .filter((land) => land.landManagerId === lm.id);
+  });
+  return farmManagerLands;
+}
+
+// Return an Object where the keys are the land types concatenated with the harvested year (use “-” to concatenate) and the value another Object where the key is the ID of the manager and the value the name of the manager
+function landsManagers() {
+  // create an empty object
+  const harvested = {};
+  // for each land type
+  lands.forEach((l) => {
+    // create the key
+    harvested[`${l.landTypeId}-${l.harvestYear}`] = landManagers
+      // filter the land manager
+      .filter((lm) => lm.id === l.landManagerId)
+      // convert to object
+      .reduce((acc, lm) => ({ ...acc, [lm.id]: lm.name }), {});
+  });
+  return harvested;
 }
 
 // console.log(listLandManagerIds());
@@ -163,4 +210,7 @@ function biggestAppleFarms() {
 // console.log(sortLandTypeByTotalArea());
 // console.log(sortLandManagerByAdminArea());
 // console.log(farmManagerNames());
-console.log(biggestAppleFarms());
+// console.log(biggestAppleFarms());
+// console.log(biggestOrangesManagers());
+// console.log(farmManagerLands());
+console.log(landsManagers());
